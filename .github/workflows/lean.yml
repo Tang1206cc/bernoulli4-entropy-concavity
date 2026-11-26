@@ -1,0 +1,41 @@
+name: Verify Lean formalization
+
+on:
+  push:
+    paths:
+      - 'lean/**'
+      - '.github/workflows/lean.yml'
+  pull_request:
+    paths:
+      - 'lean/**'
+      - '.github/workflows/lean.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the pinned Lean toolchain
+        uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee # v1.7.1
+        with:
+          lake-package-directory: lean
+          auto-config: 'false'
+          use-github-cache: 'false'
+          use-mathlib-cache: 'false'
+          build: 'false'
+      - name: Load the pinned mathlib cache and build
+        working-directory: lean
+        run: |
+          lake exe cache get Bernoulli4.lean
+          lake build
+      - name: Audit the exported theorem
+        working-directory: lean
+        run: lake env lean Audit.lean

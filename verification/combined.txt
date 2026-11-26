@@ -1,0 +1,11 @@
+Public research draft v1.0.0
+Interpreter: Python 3.14.6
+Command (repository root): python proof/verify_all.py
+
+1. Exact all-positive-real-weight classification: PASS (23 types).
+2. Exact entropy-loss identities, midpoint derivatives, and sharp comparisons: PASS.
+3. Separate rational interval curvature check: PASS (136 cells).
+4. Classification/analytic/interval template sets agree exactly: PASS.
+5. Manuscript classification and budget tables match exact data: PASS.
+The finite computations required by the manuscript have all passed.
+Read the manuscript for the all-orders analytic lemmas and coverage proof.

@@ -1,0 +1,634 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=23mm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+% A wrapper may supply font files explicitly for an isolated build.
+\ifdefined\BernoulliFontPath
+  \setmainfont{LiberationSerif-Regular.ttf}[Path=\BernoulliFontPath,
+    BoldFont=LiberationSerif-Bold.ttf,ItalicFont=LiberationSerif-Italic.ttf,
+    BoldItalicFont=LiberationSerif-BoldItalic.ttf]
+  \setsansfont{LiberationSans-Regular.ttf}[Path=\BernoulliFontPath,
+    BoldFont=LiberationSans-Bold.ttf,ItalicFont=LiberationSans-Italic.ttf,
+    BoldItalicFont=LiberationSans-BoldItalic.ttf]
+  \setmonofont{DejaVuSansMono.ttf}[Path=\BernoulliFontPath,Scale=0.82,
+    BoldFont=DejaVuSansMono-Bold.ttf,ItalicFont=DejaVuSansMono-Oblique.ttf,
+    BoldItalicFont=DejaVuSansMono-BoldOblique.ttf]
+  \newfontfamily\namefont{NotoSerifCJKsc-Regular.otf}[Path=\BernoulliFontPath]
+\else
+  \setmainfont{Liberation Serif}
+  \setsansfont{Liberation Sans}
+  \setmonofont{DejaVu Sans Mono}[Scale=0.82]
+  \newfontfamily\namefont{Noto Serif CJK SC}
+\fi
+\usepackage{amsmath,amssymb,amsthm,booktabs,longtable,array,enumitem}
+\usepackage{xcolor,hyperref,fancyhdr,microtype}
+\definecolor{ink}{HTML}{29233F}
+\definecolor{accent}{HTML}{655192}
+\hypersetup{colorlinks=true,linkcolor=accent,citecolor=accent,urlcolor=accent,
+ pdftitle={Strict entropy concavity for weighted sums of four Bernoulli variables},
+ pdfauthor={Ziyao Tang (唐梓耀); Ming Ding (丁铭); ChatGPT}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily Four Bernoulli sums}
+\fancyhead[R]{\small\sffamily Tang, Ding and ChatGPT}
+\fancyfoot[C]{\small\thepage}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{1em}
+\setlist{itemsep=2pt,topsep=4pt}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\Bern}{\operatorname{Bernoulli}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\calC}{\mathcal{C}}
+\makeatletter
+\let\inputtable\@@input
+\makeatother
+\title{\color{ink}\bfseries Strict entropy concavity for weighted sums\\
+of four Bernoulli variables}
+\author{Ziyao Tang {\namefont(唐梓耀)}\and
+Ming Ding {\namefont(丁铭)}\and ChatGPT}
+\date{26 November 2026\\[2pt]{\small Public research draft v1.0.0}}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Let \(B_1,\ldots,B_4\) be independent Bernoulli random variables with a
+common parameter \(p\), and let \(w_1,\ldots,w_4\) be arbitrary strictly
+positive real weights. We give a computer-assisted finite classification,
+followed by an analytic proof, that the Shannon entropy of
+\(\sum_{i=1}^4 w_iB_i\) is strictly concave in \(p\).
+With natural logarithms, the sharp bound is \(H_w''(p)\le-16+6\log6\)
+for \(0<p<1\), with equality exactly when the weights are all equal and
+\(p=1/2\).
+The classification reduces all positive real weights to 23 subset-sum
+collision types. Its complete finite certificate uses only rational
+arithmetic. Five elementary entropy-loss functions suffice for the
+analytic part. A separate rational interval certificate checks strict
+curvature on all 23 types without using those analytic estimates.
+\end{abstract}
+
+\section{Introduction and main result}
+For fixed \(w=(w_1,\ldots,w_4)\in(0,\infty)^4\), set
+\[
+ S_p=\sum_{i=1}^4 w_iB_i,\qquad
+ B_1,\ldots,B_4\overset{\mathrm{iid}}{\sim}\Bern(p),\qquad
+ H_w(p)=-\sum_s \Pr(S_p=s)\log\Pr(S_p=s).
+\]
+Here and throughout, \(\log\) denotes the natural logarithm and
+\(0\log0=0\). The weights are fixed; only their common Bernoulli
+parameter varies. The sum is over the fixed finite set
+\(\mathcal S_w=\{\sum_{i\in A}w_i:A\subseteq[4]\}\) of distinct
+subset sums. Every probability in this set is positive for \(0<p<1\),
+so \(H_w\) is smooth on that open interval.
+
+\begin{theorem}\label{thm:main}
+For every \(w\in(0,\infty)^4\), the function \(H_w''\) has its unique
+maximum at \(p=1/2\), and
+\[
+ \boxed{H_w''(p)\le -16+6\log6<0\quad(0<p<1).}
+\]
+Equality in the upper bound holds exactly when \(w_1=w_2=w_3=w_4\)
+and \(p=1/2\). Consequently \(H_w\) is strictly concave on \([0,1]\),
+satisfies \(H_w(p)=H_w(1-p)\), and has its unique maximum at \(p=1/2\).
+\end{theorem}
+
+Neunhäuserer's Conjecture 3.1 concerns entropy concavity for recursively
+overlapping finite Bernoulli distributions of arbitrary length
+\cite{neunhauserer}. The law for \(n=4\) is, up to a translation and the
+replacement of \(p\) by \(1-p\), the weighted sum with weights
+\[
+ 1,\quad a_2-a_1,\quad a_3-a_2,\quad a_4-a_3,\qquad a_1=2.
+\]
+Theorem~\ref{thm:main} therefore proves that \(n=4\) case and also
+allows arbitrary positive real weights.
+
+The weighted formulation was discussed by Amir in the author's
+MathOverflow thread \cite{amir}. That answer reports 23 four-variable
+collision types, numerical verification of all 23, and analytic arguments
+for seven of them. We supply an exhaustive exact classification and
+analytic curvature estimates covering every type. The previously
+reported count is thus supported here by a complete rational certificate.
+For equal weights, the unweighted entropy-concavity theorem is
+already known \cite{hillion-johnson}; our proof treats that case as
+part of the same finite catalogue.
+
+\section{A complete finite classification of positive real weights}
+For \(A\subseteq[4]\), write \(s_w(A)=\sum_{i\in A}w_i\).
+Partition the sixteen subsets into classes \(\calC\) with equal
+weighted sums. For a class \(C\), define
+\[
+ N_k(C)=\#\{A\in C:|A|=k\},\qquad
+ Q_C(p)=\sum_{k=0}^4 N_k(C)p^k(1-p)^{4-k}.
+\]
+The \emph{entropy template} is the multiset of vectors
+\((N_0(C),\ldots,N_4(C))\), one for each distinct sum. Multiplicity is
+retained: different sums can have the same probability polynomial.
+Once this multiset is known, the locations of the support points do
+not enter entropy. An \emph{equality type} is the partition of labeled
+subsets into equal-sum classes, considered up to a permutation of the
+four indices.
+
+\begin{proposition}\label{prop:classification}
+There are exactly 23 entropy templates for \(w\in(0,\infty)^4\).
+In fact there are exactly 23 subset-sum equality types, and those
+types have distinct count-vector multisets.
+\end{proposition}
+
+\begin{proof}[Proof by exhaustive rational classification]
+The following reduction specifies the finite computation and why
+it is complete; its implementation and all witnesses accompany this note.
+
+\textbf{The hyperplanes.}
+After cancelling common terms in \(s_w(A)=s_w(B)\), a nontrivial equality
+has a mixed-sign normal \(h\in\{-1,0,1\}^4\).
+Normals \(h\) and \(-h\) define the same hyperplane.
+Strict positivity excludes normals with only one nonzero sign.
+Thus there are
+\[
+ \frac{3^4-2\cdot2^4+1}{2}=25
+\]
+relevant hyperplanes: six equalities of one weight with one weight,
+twelve of one with two, four of one with three, and three of two with two.
+
+\textbf{All possible equality spaces.}
+For an actual positive \(w\), the span \(R_w\) of its vanishing
+normals has rank at most three. A basis is chosen from the 25 normals.
+Row-reducing every independent set of at most three normals therefore
+enumerates every possible equality space. The candidate subset counts
+are \(1,25,300,2300\); canonical rational row reduction leaves the
+522 spaces in Table~\ref{tab:ranks}.
+
+\textbf{Exact positive feasibility.}
+Let \(A\) be a basis matrix of a candidate row space of rank \(r\),
+and put \(d=4-r\). Consider the compact polytope
+\[
+ P_A=\{x:Ax=0,\ {\textstyle\sum_i x_i}=1,\ x_i\ge0\}.
+\]
+If the normalization equation is inconsistent, this polytope is empty.
+Otherwise the normalization increases the equation rank to \(r+1\).
+Every vertex is obtained by adding \(d-1\) active coordinate equations
+\(x_j=0\), independent modulo those equations, and solving the resulting
+square system.
+Enumerating every \((d-1)\)-subset of coordinates is therefore complete,
+including degenerate faces. All solutions are rational.
+There is a strictly positive point precisely when every coordinate is
+positive at some vertex: necessity follows from the convex-hull
+description of a compact polytope, and sufficiency follows by averaging
+the vertices.
+The 306 rejected spaces each have a certified coordinate that is zero
+at all their vertices, or have no vertices.
+
+\textbf{Excluding extra equalities.}
+For a feasible space, let \(v_0,\ldots,v_{m-1}\) be primitive integer
+versions of its nonnegative vertex rays. They span \(\ker A\): if
+\(v>0\) is in the cone and \(y\in\ker A\), then
+\(v\pm\varepsilon y\) remain in the cone for sufficiently small
+\(\varepsilon>0\), so its linear span contains every such \(y\).
+For \(t>0\),
+\[
+ w(t)=\sum_{j=0}^{m-1}t^jv_j
+\]
+is strictly positive. If a listed hyperplane does not contain
+\(\ker A\), its value on \(w(t)\) is a nonzero polynomial of degree at
+most \(m-1\). Among \(M(m-1)+1\) positive integers there is therefore
+one avoiding all \(M\) such hyperplanes.
+Exact substitution supplies an integer witness with precisely the
+equalities forced by \(A\).
+This also proves that no unrealizable equality pattern has been added.
+
+\textbf{Recovering the templates.}
+Two subset incidence vectors lie in the same class exactly when their
+difference is in the row space of \(A\). This criterion is checked
+against direct integer subset sums at every witness.
+The 216 feasible spaces give 23 different count-vector multisets.
+Permuting coordinates in all 24 ways gives 23 orbits as well, with
+one different template per orbit. For every template,
+\[
+ \sum_{C\in\calC}(N_0(C),\ldots,N_4(C))=(1,4,6,4,1).
+\]
+The certificate lists every feasible witness and every infeasibility
+obstruction. Its verifier reconstructs the complete row-space universe
+and checks that no space is omitted or duplicated.
+\end{proof}
+
+\begin{table}[ht]
+\centering
+\caption{Exhaustive classification counts.}\label{tab:ranks}
+\begin{tabular}{rrrr}
+\toprule
+Rank & Rational row spaces & Positive feasible spaces & Types modulo \(S_4\)\\
+\midrule
+\inputtable classification_rows.tex
+\bottomrule
+\end{tabular}
+\end{table}
+
+This argument covers arbitrary irrational weights as well as rational
+weights, repeated weights, and multiple simultaneous collisions.
+A bounded integer scan is used only to choose readable representatives;
+it is not used for completeness.
+
+\section{Entropy loss from merging atoms}
+Set
+\[
+ q=1-p,\qquad r=pq,\qquad h(p)=-p\log p-q\log q.
+\]
+The four labeled bits have joint entropy \(4h(p)\).
+Merging atoms of probabilities \(z_1,\ldots,z_j\) reduces entropy by
+\[
+ \left(\sum_i z_i\right)\log\left(\sum_i z_i\right)
+ -\sum_i z_i\log z_i.
+\]
+Complementary subsets give complementary fibers, so they can be grouped.
+The empty and full subsets are unique extreme sums and cause no loss.
+A fiber of \(a\) singleton atoms, paired with its complementary fiber
+of \(a\) tripleton atoms, contributes
+\(ar(1-2r)\log a\).
+A fiber of \(b\) doubleton atoms contributes \(br^2\log b\).
+
+The mixed singleton--doubleton fibers and their complements contribute
+\begin{align}
+ F_{ab}(p)={}&pq^2\bigl[(aq+bp)\log(aq+bp)
+                    -aq\log q-bp\log p\bigr]\notag\\
+ &+p^2q\bigl[(ap+bq)\log(ap+bq)
+                    -ap\log p-bq\log q\bigr].\label{eq:F}
+\end{align}
+The possible pairs are \((a,b)=(1,1),(1,2),(2,1),(1,3)\).
+One singleton and its complementary tripleton in the same fiber
+contribute
+\[
+ T(p)=r\bigl[(p^2+q^2)\log(p^2+q^2)-2p^2\log p-2q^2\log q\bigr].
+\]
+
+\textbf{Exhaustion of fiber shapes.}
+If a fiber contains \(a\) singleton atoms, every doubleton in it avoids
+all of those singleton indices: otherwise its weight would be strictly
+larger. Consequently a mixed singleton--doubleton fiber satisfies
+\(1\le b\le\binom{4-a}{2}\), giving exactly the four pairs above.
+The doubleton--tripleton case follows by complementation.
+If a singleton equals a tripleton, strict positivity forces the latter
+to be its complement. No other subset can join that fiber: any other
+singleton or doubleton avoiding that index has smaller weight, whereas
+a subset containing that index and another element has larger weight.
+Thus the fiber consists of precisely those two complementary atoms.
+This exhausts the mixed sizes among singleton, doubleton, and tripleton
+subsets, and explains why the five functions suffice.
+
+It follows from the catalogue that every template has the exact identity
+\begin{equation}\label{eq:loss}
+ H_w=4h-Ar(1-2r)-Br^2
+       -f_{11}F_{11}-f_{12}F_{12}-f_{21}F_{21}-f_{13}F_{13}-tT,
+\end{equation}
+where \(A,B\ge0\) and \(f_{11},f_{12},f_{21},f_{13},t\) are
+nonnegative integers. The complete values appear in
+Table~\ref{tab:budgets}. The coefficients are obtained by enumerating
+the sixteen subsets and grouping equal sums. The verification program
+reconstructs these coefficients and compares the generated table with
+the exact source included in this manuscript.
+
+\section{Analytic curvature bounds}
+\begin{lemma}\label{lem:F}
+On \(0<p<1\),
+\begin{align*}
+ F_{11}''&\ge-1-2\log2,&
+ F_{12}''&\ge-\tfrac43-4\log3,\\
+ F_{21}''&\ge-\tfrac43-2\log3,&
+ F_{13}''&\ge-\tfrac32-12\log2.
+\end{align*}
+Each bound is attained at \(p=1/2\).
+\end{lemma}
+
+\begin{proof}
+Put \(u=2p-1\), \(C=(a+b)/2\), and \(\alpha=(b-a)/(a+b)\).
+Here \(|\alpha|\in\{0,1/3,1/2\}\). After substitution, the logarithms
+are constants or \(\log(1\pm u)\) and \(\log(1\pm\alpha u)\).
+Their Taylor series, together with their differentiated series, converge
+uniformly on each compact subinterval of \(|u|<1\).
+Each \(F_{ab}\) is even, so write
+\(F_{ab}=\sum_{n\ge0}c_nu^{2n}\) throughout that interval.
+The first coefficients obtained from \eqref{eq:F} are:
+\begin{center}
+\small
+\begin{tabular}{c c c c}
+\toprule
+ &\(c_0\)&\(c_1\)&\(c_2\)\\
+\midrule
+\(F_{11}\)&\(\frac{\log2}{4}\)&\(-\frac{\log2}{4}-\frac18\)&\(\frac5{48}\)\\[3pt]
+\(F_{12}\)&\(\frac{3\log3}{8}\)&\(-\frac{\log3}{2}-\frac16\)&\(\frac{19}{162}+\frac{\log3}{8}\)\\[3pt]
+\(F_{21}\)&\(\frac{3\log3}{8}\)&\(-\frac{\log3}{4}-\frac16\)&\(\frac{25}{162}-\frac{\log3}{8}\)\\[3pt]
+\(F_{13}\)&\(\log2\)&\(-\frac{3\log2}{2}-\frac3{16}\)&\(\frac{15}{128}+\frac{\log2}{2}\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+All four \(c_2\) are positive. For \(F_{21}\), it suffices that
+\(\log3<11/10\), since \(25/162-11/80>0\).
+
+Here is a derivation and explicit sign check for every remaining
+coefficient. Set \(F_{ab}/r=\sum_{n\ge0}g_nu^{2n}\).
+The first two coefficients are
+\[
+ g_0=C\log(a+b),\qquad
+ g_1=-\frac{ab}{a+b}-C\alpha\log(a+b).
+\]
+Expanding the logarithms in \eqref{eq:F} gives, for \(n\ge2\),
+\begin{equation}\label{eq:gn}
+ g_n=\frac{C}{2n(n-1)(2n-1)}
+ \left\{\alpha^{2n-1}[n+(n-1)\alpha]-[(n-1)+n\alpha]\right\}.
+\end{equation}
+For completeness, the expression being expanded can also be written
+\begin{align*}
+ \frac{F_{ab}}r={}&C(1-\alpha u^2)\log(a+b)\\
+ &+\frac C2\bigl[(1-u)(1+\alpha u)\log(1+\alpha u)
+               +(1+u)(1-\alpha u)\log(1-\alpha u)\bigr]\\
+ &-\frac a4\bigl[(1-u)^2\log(1-u)+(1+u)^2\log(1+u)\bigr]\\
+ &-\frac b4(1-u^2)\log(1-u^2).
+\end{align*}
+Since \(r=(1-u^2)/4\), \(c_n=(g_n-g_{n-1})/4\) for \(n\ge3\).
+Let \(D_n=n(n-1)(n-2)(2n-1)(2n-3)>0\). Direct simplification yields:
+\begin{align*}
+ c_n(F_{11})&=\frac18\left[
+ \frac1{(n-1)(2n-3)}-\frac1{n(2n-1)}\right],\\
+ c_n(F_{12})&=
+ \frac{9^n(8n^2-19n+9)-(96n^3-144n^2+21n+9)}
+ {8\cdot9^nD_n},\\
+ c_n(F_{21})&=
+ \frac{9^n(4n^2-14n+9)+(48n^3-36n^2+6n-9)}
+ {8\cdot9^nD_n},\\
+ c_n(F_{13})&=
+ \frac{3\{4^n(4n^2-9n+4)-(12n^3-14n^2-6n+4)\}}
+ {8\cdot4^nD_n}.
+\end{align*}
+The first is positive. For the second, when \(n\ge3\),
+\[
+ 8n^2-19n+9\ge24,\qquad
+ \frac{96n^3-144n^2+21n+9}{9^n}
+ \le\frac{96n^3}{9^n}\le\frac{32}{9}<24.
+\]
+The last estimate follows because \(n^3/9^n\) decreases from \(n=3\).
+For the third, both \(4n^2-14n+9\) and
+\(48n^3-36n^2+6n-9\) are positive for \(n\ge3\).
+For the fourth,
+\[
+ 4n^2-9n+4\ge13,\qquad
+ \frac{12n^3-14n^2-6n+4}{4^n}
+ \le\frac{12n^3}{4^n}\le\frac{81}{16}<13,
+\]
+using the decrease of \(n^3/4^n\) for \(n\ge3\).
+Thus \(c_n>0\) for every \(n\ge2\), in every case.
+
+Termwise differentiation is valid on compact subintervals of \(|u|<1\).
+Since \(du/dp=2\),
+\[
+ F_{ab}''(p)
+ =8c_1+4\sum_{n\ge2}(2n)(2n-1)c_nu^{2n-2}\ge8c_1.
+\]
+The four values of \(8c_1\) give the stated bounds. For \(F_{13}\),
+retaining the term with \(n=2\) gives the additional estimate
+\begin{equation}\label{eq:quartic}
+ F_{13}''(p)-F_{13}''(1/2)\ge
+ 48c_2(F_{13})u^2=\bigl(\tfrac{45}8+24\log2\bigr)u^2.
+\end{equation}
+\end{proof}
+
+\begin{lemma}\label{lem:T}
+On \(0<p<1\), \(T''(p)\ge-2=T''(1/2)\).
+\end{lemma}
+\begin{proof}
+By symmetry, use \(u=|2p-1|\in[0,1)\), and let
+\[
+ O(u)=(1+u)\log(1+u)-(1-u)\log(1-u).
+\]
+Since \(O''(u)=-2u/(1-u^2)\le0\), \(O(0)=0\), and
+\(O(1)=2\log2\) by continuity, its chord bound gives
+\[
+ O(u)\ge2u\log2\ge u\log\bigl(2(1+u^2)\bigr).
+\]
+Direct differentiation of the definition of \(T\) gives
+\[
+ T''(p)=-2\frac{1-u^2}{1+u^2}
+ +6u\left[O(u)-u\log\bigl(2(1+u^2)\bigr)\right].
+\]
+The bracket is nonnegative and the first term is at least \(-2\).
+The identity and the conclusion at \(u=0\) follow by continuity.
+\end{proof}
+
+\section{The sharp curvature bound}
+Write \(L_2=\log2\), \(L_3=\log3\), and define
+\begin{align*}
+ K={}&B+f_{11}(1+2L_2)+f_{12}(\tfrac43+4L_3)\\
+    &+f_{21}(\tfrac43+2L_3)+f_{13}(\tfrac32+12L_2)+2t,\\
+ D={}&6A-3B-f_{13}(\tfrac{45}8+24L_2).
+\end{align*}
+The rational comparisons below use \(2/3<L_2<7/10\) and
+\(1<L_3<11/10\). The lower bounds are the first term of
+\(\log x=2\sum_{j\ge0}z^{2j+1}/(2j+1)\) for \(z=(x-1)/(x+1)\)
+and \(x=2,3\). The upper bounds follow from
+\(\sum_{j=0}^5(7/10)^j/j!>2\), \(\sum_{j=0}^5(11/10)^j/j!>3\),
+and positivity of the omitted exponential-series terms.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Let \(r=p(1-p)\). Since
+\[
+ h''=-1/r,\quad [r(1-2r)]''=-6(1-4r),\quad (r^2)''=2-12r,
+\]
+the midpoint values in Lemmas~\ref{lem:F} and \ref{lem:T} give
+\(H_w''(1/2)=-16+K\) in \eqref{eq:loss}. Subtracting the midpoint
+value from \(H_w''(p)\), the \(4h\) term gives \(-4(1-4r)/r\)
+and the \(A,B\) terms give \((6A-3B)(1-4r)\).
+The other terms have nonpositive differences by the two lemmas,
+with the stronger bound \eqref{eq:quartic} for the \(F_{13}\) term.
+As \(u^2=1-4r\), this proves
+\begin{equation}\label{eq:midpoint}
+ H_w''(p)-H_w''(1/2)\le(1-4r)(D-4/r).
+\end{equation}
+In Table~\ref{tab:budgets}, the equal-weight row T01 has
+\(D=30L_2-18L_3<3\). For T02,
+\(D=18L_3-24L_2-45/8<-73/40\).
+For T04, T05, and T08, one has \(6A=3B\) and \(f_{13}=0\).
+All other rows have \(A\le2L_2\) and hence \(D\le12L_2<42/5\).
+In particular \(D<16\le4/r\), so \eqref{eq:midpoint} is strictly negative
+for \(p\ne1/2\).
+
+For T01, \(K=6L_2+6L_3=6\log6>10\), whereas the rational bounds
+in the last column give \(K\le99/10\) in every other row.
+Thus \(H_w''(1/2)\le-16+6\log6\), with equality only for T01,
+the type of equal weights. Conversely, equal weights give T01 and
+attain the bound at \(p=1/2\). The bound is negative since
+\(6\log6<54/5<16\).
+
+The entropy is continuous at both endpoints because \(z\log z\to0\)
+as \(z\downarrow0\), so its strict concavity in the interior extends
+to \([0,1]\). Complementing all four bits sends \(S_p\) to
+\(\sum_iw_i-S_p\) with the law of \(S_{1-p}\), proving symmetry.
+Strict concavity and symmetry give the unique maximum at \(1/2\).
+\end{proof}
+
+\begin{corollary}
+Set \(\kappa=16-6\log6\). For \(p_0,p_1,\lambda\in[0,1]\),
+\begin{align*}
+ H_w(\lambda p_0+(1-\lambda)p_1)\ge{}&
+ \lambda H_w(p_0)+(1-\lambda)H_w(p_1)\\
+ &+\frac{\kappa}{2}\lambda(1-\lambda)(p_0-p_1)^2.
+\end{align*}
+Equality holds exactly when \(p_0=p_1\) or \(\lambda\in\{0,1\}\).
+\end{corollary}
+\begin{proof}
+The second derivative of \(p\mapsto H_w(p)+(\kappa/2)p^2\) is
+nonpositive and vanishes at most at \(1/2\). The function extends
+continuously as a concave function to \([0,1]\) and has no affine
+segment of positive length. Its strict concavity yields the inequality
+and the stated equality cases. For equal weights, apply the inequality
+with \(p_0=1/2-\varepsilon\), \(p_1=1/2+\varepsilon\), and
+\(\lambda=1/2\). As \(\varepsilon\downarrow0\), the midpoint Taylor
+expansion and Theorem~\ref{thm:main} show that \(\kappa/2\) cannot be increased.
+\end{proof}
+
+\clearpage
+\begin{table}[ht]
+\centering
+\caption{Exact entropy-loss budgets for all 23 types.
+Write \(L_2=\log2\), \(L_3=\log3\), and
+\(f=(f_{11},f_{12},f_{21},f_{13})\).
+\(U\) is the rational upper bound for \(K\) obtained by
+\(L_2<7/10,\ L_3<11/10\).}\label{tab:budgets}
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.28}
+\begin{tabular}{l c c c c c c}
+\toprule
+Type & Representative \(w\) & \(A\) & \(B\) & \(f\) & \(t\)& \(U\)\\
+\midrule
+\inputtable budget_rows.tex
+\bottomrule
+\end{tabular}
+\end{table}
+
+The largest rational bound for rows other than T01 is \(99/10\).
+The row identifiers match the exact classification certificate.
+The representatives need not be the smallest possible ones; each
+is checked to have the required template.
+
+\section{A separate exact interval check}
+For a separate check of strict curvature, the supplemental program
+\texttt{curvature\_certificate.py} differentiates the probability
+polynomials directly, without the entropy-loss lemmas.
+It uses the same exhaustive classification, with a separate calculation
+of curvature from each probability polynomial.
+It covers \(0\le p\le1/2\) with 136 rational closed intervals in total
+across all 23 types. The other half follows from symmetry.
+
+For each class factor
+\[
+ Q_C(p)=p^{a_C}q^{b_C}R_C(p),\quad
+ a_C=\min\{k:N_k(C)>0\},\quad
+ b_C=4-\max\{k:N_k(C)>0\}.
+\]
+Let \(\mathcal A=\sum_Ca_CQ_C\) and
+\(\mathcal B=\sum_Cb_CQ_C\). Then
+\[
+ H_w=-\mathcal A\log p-\mathcal B\log q
+          -\sum_C Q_C\log R_C.
+\]
+The verified expression is \(V(p)=-pqH_w''(p)\), written without
+singular polynomial quotients:
+\begin{align*}
+ V={}&P+q\mathcal A''(p\log p)+p\mathcal B''(q\log q)\\
+ &+pq\sum_C\left[
+ Q_C''\log R_C+\frac{2Q_C'R_C'}{R_C}
+ +Q_C\left(\frac{R_C''}{R_C}-\frac{(R_C')^2}{R_C^2}\right)\right],\\
+ P={}&2q\mathcal A'-q\frac{\mathcal A}{p}
+       -2p\mathcal B'-p\frac{\mathcal B}{q}.
+\end{align*}
+Both quotients in \(P\) are exact polynomial quotients.
+At \(p=0\), \(V\) is understood by continuous extension; \(H_w''(0)\)
+is not asserted to exist. In fact \(V(0)=4\).
+
+All interval endpoints and all arithmetic are rational. Logarithms are
+enclosed by reducing \(x=2^ky\), \(1\le y\le2\), then using
+\[
+ \log y=2\sum_{j=0}^{N-1}\frac{z^{2j+1}}{2j+1}+E_N,\qquad
+ z=\frac{y-1}{y+1},\quad
+ 0\le E_N\le\frac{2z^{2N+1}}{(2N+1)(1-z^2)}.
+\]
+The implementation uses \(N=24\) and outward rational rounding.
+For the interval meeting zero, \(p\log p\) is bounded by its monotonicity
+on \([0,1/1024]\). Every certified interval has a lower bound
+\(V>1/50\). This is an additional check of strict concavity;
+the stronger theorem above follows from the analytic argument.
+
+\section{Reproducibility and computational provenance}
+The verification package requires only Python 3.10 or later and its
+standard library. Run, without Python's optimization flag,
+\begin{verbatim}
+python proof/verify_all.py
+\end{verbatim}
+This reconstructs the finite classification universe and verifies its
+certificate, reconstructs the entropy-loss identities, checks the sharp
+comparison and the exact midpoint derivatives, verifies every fixed
+interval certificate, and checks equality
+of the three template catalogues. It also compares both displayed
+classification and budget tables with their exact regenerated sources.
+Finite coefficient checks in the program are transcription checks only;
+the all-orders positivity proof is the analytic proof above.
+
+The additional program \texttt{independent\_classification\_check.py}
+reconstructs the classification using determinant span tests and Cramer's
+rule. For each excluded space it also finds a nonzero nonnegative vector
+\(y\) in that row space. Such a vector independently certifies the
+exclusion: \(y\cdot w>0\) for every \(w>0\), whereas \(Aw=0\)
+would imply \(y\cdot w=0\).
+
+The main artifacts are:
+\begin{itemize}
+\item \texttt{classification.py}, \texttt{classification.json}:
+complete real-weight coverage, witnesses, exclusions, and subset partitions;
+\item \texttt{analytic\_proof.py}, \texttt{analytic\_templates.json}:
+exact reconstruction of \eqref{eq:loss} and Table~\ref{tab:budgets};
+\item \texttt{curvature\_certificate.py},\\
+\texttt{curvature\_certificate.json}: separate rational curvature check;
+\item \texttt{verify\_all.py}: coverage linkage and combined verification.
+\item \texttt{manuscript\_tables.py}: deterministic generation and checking
+of the classification and budget tables.
+\end{itemize}
+
+ChatGPT contributed to the derivations, code, and preparation of this
+manuscript. The accompanying review note and verification records document
+internal AI checks of the mathematics and computations. This public research
+draft has not undergone external peer review. The finite certificates use
+exact Python arithmetic; the analytic arguments appear above. No
+proof-assistant kernel is used.
+
+The conclusion concerns four positive weights with a common Bernoulli
+parameter. The arbitrary-length conjecture remains a separate problem.
+
+\paragraph{Reuse.}
+This manuscript is distributed under
+\href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.
+The verification programs and machine-readable proof certificates are
+distributed under the MIT license; see the accompanying license notices.
+
+\begin{thebibliography}{9}
+\bibitem{neunhauserer}
+J. Neunhäuserer,
+\emph{Recursive overlap Bernoulli distributions and an entropy concavity
+conjecture}, arXiv:2609.05546v2, 22 September 2026.
+\url{https://arxiv.org/abs/2609.05546}.
+
+\bibitem{amir}
+J. Neunhäuserer (question), Amir (answer),
+\emph{A recursive overlap construction of finite Bernoulli-sum laws
+and an entropy-concavity conjecture}, MathOverflow, question 514729.
+Question posted 28 August 2026; answer posted 11 September and
+revised 15 September 2026. Accessed 26 November 2026.
+\url{https://mathoverflow.net/questions/514729}.
+
+\bibitem{hillion-johnson}
+E. Hillion and O. Johnson,
+\emph{A proof of the Shepp--Olkin entropy concavity conjecture},
+Bernoulli 23(4B) (2017), 3638--3649.
+\url{https://doi.org/10.3150/16-BEJ860}.
+\end{thebibliography}
+\end{document}

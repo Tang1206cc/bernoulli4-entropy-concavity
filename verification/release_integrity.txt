@@ -1,0 +1,14 @@
+Public research draft v1.0.0 — local release checks
+26 November 2026
+
+Python source parses under Python 3.10 grammar: PASS.
+All three mathematical certificate JSON files retain their exact bytes: PASS.
+Exact midpoint derivatives and rational comparisons for all 23 types: PASS.
+Manuscript-table check from the root and an unrelated directory: PASS.
+All five assertion-based CLIs explicitly reject -O and -OO: PASS.
+PDF builder CLI resolves from an unrelated working directory: PASS.
+The local interpreter version is recorded in combined.txt.
+The repository includes a GitHub Actions workflow for Python 3.10 and 3.12.
+
+This record covers proof and release verification. The manuscript
+is a public research draft pending external peer review.

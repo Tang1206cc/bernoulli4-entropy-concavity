@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+paper/_build/
+*.aux
+*.log
+*.out
+*.fmt
+*.xdv
+*.synctex.gz

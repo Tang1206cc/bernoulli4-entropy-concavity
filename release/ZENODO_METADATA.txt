@@ -1,0 +1,67 @@
+OPTIONAL ZENODO PREPRINT DEPOSIT — VERSION 1.0.0
+==============================================
+
+Prepared for author review. No record has been created or published and no
+DOI has been assigned.
+
+Resource type: Publication / Preprint
+Title: Strict entropy concavity for weighted sums of four Bernoulli variables
+Version: 1.0.0
+Language: English
+
+Authors, in this exact order:
+    1. Ziyao Tang (唐梓耀)
+    2. Ming Ding (丁铭)
+    3. ChatGPT
+
+Preserve the manuscript's author credit. Add only verified affiliations or
+identifiers; do not invent an ORCID or affiliation for any author.
+
+Publication date: Enter the date this version is first made public.
+DOI: Enter only the DOI assigned to this preprint record once available.
+Related code release: https://github.com/Tang1206cc/bernoulli4-entropy-concavity/releases/tag/v1.0.0
+
+ABSTRACT
+--------
+Let B_1,...,B_4 be independent Bernoulli random variables with a common
+parameter p, and let w_1,...,w_4 be arbitrary strictly positive real weights.
+We give a computer-assisted finite classification, followed by an analytic
+proof, that the Shannon entropy of sum_i w_i B_i is strictly concave in p.
+With natural logarithms, the sharp bound is H_w''(p) <= -16 + 6 log(6)
+for 0 < p < 1, with equality exactly when all weights are equal and
+p = 1/2. The classification reduces all positive real
+weights to 23 subset-sum collision types. Its complete finite certificate
+uses only rational arithmetic. Five elementary entropy-loss functions
+suffice for the analytic part. A separate rational interval certificate
+checks strict curvature on all 23 types without using those analytic
+estimates.
+
+KEYWORDS
+--------
+Shannon entropy; Bernoulli random variables; entropy concavity; subset sums;
+computer-assisted proof; exact rational arithmetic.
+
+REVIEW STATUS
+-------------
+Public research draft v1.0.0; external peer review has not been performed.
+The work has received internal AI mathematical, computational, and
+literature review. Proof-assistant kernel formalization has not been
+performed.
+
+FILES AND LICENSE
+-----------------
+This optional preprint record is for the manuscript only: deposit the PDF
+and, if desired, the manuscript TeX source and its generated TeX tables.
+Proposed record license: Creative Commons Attribution 4.0 International
+(CC BY 4.0), https://creativecommons.org/licenses/by/4.0/.
+
+Link the separately licensed code release instead of uploading the whole
+mixed-license repository as the preprint. The prepared release terms are:
+MIT for all Python scripts, proof/*.json, and the verification workflow;
+CC BY 4.0 for the manuscript, generated TeX tables, and prose documentation.
+These terms are prepared for author review; this sheet does not publish
+or submit any material.
+
+OFFICIAL DEPOSIT GUIDE
+----------------------
+https://help.zenodo.org/docs/deposit/create-new-upload/

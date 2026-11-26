@@ -1,0 +1,45 @@
+# Citation metadata for public research draft v1.0.0.
+# Citation metadata for the GitHub release.
+cff-version: "1.2.0"
+message: >-
+  Please cite the manuscript listed in preferred-citation when referring to the
+  mathematical result. If you use the verification code, also cite the software
+  release that you used.
+type: software
+version: "1.0.0"
+repository-code: "https://github.com/Tang1206cc/bernoulli4-entropy-concavity"
+title: "Four Bernoulli sums: exact classification and curvature verification"
+authors:
+  - family-names: "Tang"
+    given-names: "Ziyao"
+    alias: "唐梓耀"
+  - family-names: "Ding"
+    given-names: "Ming"
+    alias: "丁铭"
+  - name: "ChatGPT"
+abstract: >-
+  Exact rational verification software accompanying the manuscript Strict
+  entropy concavity for weighted sums of four Bernoulli variables. The package
+  classifies the subset-sum collision types for four arbitrary positive real
+  weights, checks the analytic entropy-loss identities and finite comparisons
+  for the sharp bound, and verifies a separate rational interval curvature certificate.
+keywords:
+  - "Shannon entropy"
+  - "Bernoulli random variables"
+  - "entropy concavity"
+  - "exact arithmetic"
+  - "computer-assisted proof"
+preferred-citation:
+  type: unpublished
+  title: "Strict entropy concavity for weighted sums of four Bernoulli variables"
+  authors:
+    - family-names: "Tang"
+      given-names: "Ziyao"
+      alias: "唐梓耀"
+    - family-names: "Ding"
+      given-names: "Ming"
+      alias: "丁铭"
+    - name: "ChatGPT"
+  year: 2026
+  url: "https://github.com/Tang1206cc/bernoulli4-entropy-concavity/releases/tag/v1.0.0"
+  notes: "Public research draft v1.0.0; external peer review has not been performed."

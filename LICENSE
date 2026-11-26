@@ -1,0 +1,26 @@
+LICENSE SCOPE FOR VERSION 1.0.0
+==============================
+
+The following scopes assign different licenses to different parts of the
+release. They are not a choice of either license for every file.
+
+MIT license (see LICENSE-CODE.txt):
+  - All Python source files, including the PDF build helper.
+  - The JSON proof certificates in proof/.
+  - .github/workflows/verify.yml and .gitignore.
+
+Creative Commons Attribution 4.0 International (see LICENSE-DOCUMENTATION.txt):
+  - The manuscript PDF and manuscript TeX source.
+  - The generated TeX classification and budget tables.
+  - README, release notes, derivation notes, and review documentation.
+  - Recorded verification outputs, citation metadata, release metadata,
+    VERSION, and the SHA256SUMS.txt manifest.
+
+The license texts themselves retain their original terms and notices.
+References to third-party publications do not relicense those publications.
+
+Research authors, in order:
+  Ziyao Tang (唐梓耀), Ming Ding (丁铭), ChatGPT.
+
+The named AI-system contribution is described in the manuscript and README.
+Authorship credit here does not assert that an AI system is a copyright owner.

@@ -1,0 +1,15 @@
+Public research draft v1.0.0 — PDF inspection
+26 November 2026
+
+Build engine: Tectonic 0.17.0 (XeTeX). The isolated build wrapper
+set \BernoulliFontPath to the directory containing the manuscript's
+font files and then loaded paper/bernoulli4_manuscript.tex.
+Two-pass compilation of the shipped manuscript source: PASS.
+Pages: 9 (A4).
+Author metadata and title-page order: Ziyao Tang (唐梓耀); Ming Ding (丁铭); ChatGPT.
+All text and math fonts embedded: PASS.
+Overfull boxes, missing characters, and undefined references: none observed.
+
+All pages were rendered and visually inspected, including the boxed
+sharp bound, the midpoint comparison and equality proof, both tables,
+the computational provenance, and the bibliography.

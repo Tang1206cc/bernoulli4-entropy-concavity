@@ -1,0 +1,247 @@
+AN ANALYTIC CURVATURE PROOF FOR THE 23 FOUR-WEIGHT TEMPLATES
+======================================================================
+
+Status and scope
+----------------
+This is a complete analytic proof of strict concavity for each of the 23
+templates, conditional only on the separate exact classification showing
+that these templates cover all four strictly positive real weights.
+It needs no interval arithmetic, sampled derivatives, or numerical logs.
+With natural logarithms it gives H''(p)<=-16+6 log(6). Equality holds
+exactly when all weights are equal and p=1/2.
+
+Notation
+--------
+Let p in (0,1), q=1-p, r=pq, and h(p)=-p log p-q log q.
+For four independent Bernoulli(p) bits, their joint entropy is 4h(p).
+For each fiber of equal weighted subset sums, merge the corresponding
+atoms.  If their probabilities are z_1,...,z_j, the entropy loss is
+
+  (z_1+...+z_j) log(z_1+...+z_j) - sum_i z_i log z_i.
+
+The entropy of the weighted sum is 4h minus the sum of these losses.
+Complementary subsets yield complementary fibers and p<->q symmetry.
+
+Every merged fiber in the 23 templates is of one of the following kinds:
+
+1. a singleton atoms, and its complementary fiber of a tripleton atoms:
+
+   a*r*(1-2r)*log a.
+
+2. b doubleton atoms in a single fiber:
+
+   b*r^2*log b.
+
+3. a singleton atoms plus b doubleton atoms, together with the
+   complementary fiber of b doubleton atoms plus a tripleton atoms:
+
+   F_ab(p)=p*q^2*[(a*q+b*p)log(a*q+b*p)-a*q log q-b*p log p]
+           +p^2*q*[(a*p+b*q)log(a*p+b*q)-a*p log p-b*q log q].
+
+   Only (a,b)=(1,1),(1,2),(2,1),(1,3) occur.
+
+4. One singleton and its complementary tripleton in one central fiber:
+
+   T(p)=r*[(p^2+q^2)log(p^2+q^2)-2p^2 log p-2q^2 log q].
+
+Thus every template has the exact identity
+
+  H(p)=4h(p)-A*r*(1-2r)-B*r^2
+               -f11*F11-f12*F12-f21*F21-f13*F13-t*T,             (1)
+
+where A,B>=0 and f11,f12,f21,f13,t are nonnegative integers.
+The table at the end lists all coefficients.  The accompanying script
+reconstructs them from the sixteen subsets, using exact integer counts.
+
+LEMMA 1: THE FOUR MIXED-FIBER CURVATURE BOUNDS
+-----------------------------------------------------------------------
+Throughout (0,1),
+
+  F11''(p) >= -1-2 log 2,
+  F12''(p) >= -4/3-4 log 3,
+  F21''(p) >= -4/3-2 log 3,
+  F13''(p) >= -3/2-12 log 2.                                    (2)
+
+All four attain equality at p=1/2.
+
+Proof. Put u=2p-1, so |u|<1. Each F_ab is even and analytic in u.
+Write F_ab=sum_{n>=0} c_n u^(2n).  The first three coefficients are:
+
+          c_0                 c_1                     c_2
+ F11      log2/4             -log2/4-1/8               5/48
+ F12      3log3/8            -log3/2-1/6               19/162+log3/8
+ F21      3log3/8            -log3/4-1/6               25/162-log3/8
+ F13      log2               -3log2/2-3/16             15/128+log2/2
+
+Every c_2 is positive. For F21 this follows, for instance, from
+log3<11/10, since 25/162-11/80>0.
+
+For transparency, a common formula producing all later coefficients is
+as follows. Let C=(a+b)/2 and alpha=(b-a)/(a+b). If
+
+  F_ab/r = sum_{n>=0} g_n u^(2n),
+
+then, for n>=2,
+
+  g_n = C/[2n(n-1)(2n-1)] *
+        {alpha^(2n-1)[n+(n-1)alpha]-[(n-1)+n alpha]}.             (3)
+
+Consequently c_n=(g_n-g_(n-1))/4 for n>=3. Equation (3) follows
+immediately by expanding log(1+u), log(1-u), log(1+alpha*u), and
+log(1-alpha*u) in the displayed definition of F_ab.
+
+Here are fully explicit forms, so no sign assertion is hidden in (3).
+Set D_n=n(n-1)(n-2)(2n-1)(2n-3)>0, n>=3.
+
+F11:
+  c_n=1/8 * {1/[(n-1)(2n-3)]-1/[n(2n-1)]}>0.
+
+F12:
+  c_n={9^n(8n^2-19n+9)-(96n^3-144n^2+21n+9)}/[8*9^n D_n]>0.
+
+Indeed 8n^2-19n+9>=24. Also
+  (96n^3-144n^2+21n+9)/9^n <=96n^3/9^n <=32/9<24.
+The last inequality follows because n^3/9^n decreases for n>=3:
+its next-term ratio is <=(4/3)^3/9<1, and its value at n=3 is 1/27.
+
+F21:
+  c_n={9^n(4n^2-14n+9)+(48n^3-36n^2+6n-9)}/[8*9^n D_n]>0.
+
+Both terms in the numerator are positive for n>=3: the first
+quadratic is increasing there and equals 3 at n=3; the cubic is
+12n^2(4n-3)+6n-9>0.
+
+F13:
+  c_n=3*{4^n(4n^2-9n+4)-(12n^3-14n^2-6n+4)}/[8*4^n D_n]>0.
+
+Here 4n^2-9n+4>=13, whereas the subtracted term divided by 4^n is
+at most 12n^3/4^n<=81/16<13. Again n^3/4^n decreases for n>=3.
+
+Termwise differentiation is valid on compact subintervals of |u|<1.
+Since every c_n with n>=2 is positive,
+
+  F_ab''(p)=8c_1+4*sum_{n>=2}(2n)(2n-1)c_n u^(2n-2) >=8c_1.
+
+Reading off 8c_1 from the table gives (2).                         QED
+
+Optional short proof for F11 alone:
+F11=r*h and F11''=log r+3(2p-1)log(p/q)-1. Writing u=2p-1 gives
+log(4r)+u log(p/q)=2[log2-h(p)]>=0 and u log(p/q)>=0, yielding
+F11''>=-1-2log2 without series.
+
+LEMMA 2: THE SINGLETON-TRIPLETON CURVATURE BOUND
+-----------------------------------------------------------------------
+
+  T''(p)>=-2.                                                   (4)
+
+Proof. By symmetry put u=|2p-1| in [0,1). Define
+
+  O(u)=(1+u)log(1+u)-(1-u)log(1-u).
+
+O''(u)=-2u/(1-u^2)<=0, O(0)=0, O(1)=2log2, with endpoint values
+understood by continuity. Hence concavity gives O(u)>=2u log2.
+Since 2(1+u^2)<=4,
+
+  O(u)>=u log[2(1+u^2)].
+
+Direct differentiation of T gives the identity
+
+  T''(p)=-2(1-u^2)/(1+u^2)
+          +6u{O(u)-u log[2(1+u^2)]}.
+
+The second term is nonnegative and the first is at least -2.     QED
+
+THE UNIFORM CURVATURE CONCLUSION
+-----------------------------------------------------------------------
+
+Use L2=log(2), L3=log(3), and set
+
+  K=B+f11(1+2L2)+f12(4/3+4L3)+f21(4/3+2L3)+f13(3/2+12L2)+2t,
+  D=6A-3B-f13(45/8+24L2).
+
+Since h''=-1/r, [r(1-2r)]''=-6(1-4r), and (r^2)''=2-12r,
+the midpoint values in the loss bounds give H''(1/2)=-16+K.
+Subtracting that value from H''(p), the joint entropy contributes
+-4(1-4r)/r, and the A and B terms contribute (6A-3B)(1-4r).
+All other terms give nonpositive differences. For F13, keeping the
+quartic coefficient 15/128+L2/2 gives the stronger estimate
+
+  F13''(p)-F13''(1/2) >= (45/8+24L2)(1-4r).
+
+Consequently
+
+  H''(p)-H''(1/2) <= (1-4r)(D-4/r).
+
+The first atanh-series terms give L2>2/3 and L3>1. The positive
+exponential series through degree five gives L2<7/10 and L3<11/10.
+At equal weights D=30L2-18L3<3, and for (1,1,1,2) it is
+18L3-24L2-45/8<-73/40. For (1,1,1,3), (1,1,1,4), and
+(1,1,3,3), D=0. All other rows have D<=6A<=12L2<42/5.
+Thus D<16<=4/r, giving a strict midpoint maximum for every type.
+
+The equal-weight row has K=6 log(6)>10. Every other row has
+K<=99/10, by the rational upper bounds in the last column.
+Therefore H''(p)<=-16+6 log(6), with equality exactly when
+the weights are all equal and p=1/2. The bound is negative
+because 6 log(6)<54/5.
+
+Entropy is continuous at p=0 and p=1. Complement symmetry gives
+H(p)=H(1-p), so strict concavity makes p=1/2 the unique maximum
+on [0,1]. For kappa=16-6 log(6), the function
+H(p)+(kappa/2)p^2 is concave and has no affine segment of positive
+length, since its second derivative vanishes at most at p=1/2.
+This gives the sharp strong-concavity inequality
+
+  H(lambda*p_0+(1-lambda)*p_1)
+    >=lambda*H(p_0)+(1-lambda)*H(p_1)
+       +(kappa/2)lambda(1-lambda)(p_0-p_1)^2.
+
+Equality here holds exactly for p_0=p_1 or lambda=0 or 1.
+
+EXACT TEMPLATE TABLE
+-----------------------------------------------------------------------
+L2=log2, L3=log3; f=(f11,f12,f21,f13). U is obtained by replacing
+L2 by 7/10 and L3 by 11/10 in K; thus K<=U<=54/5, with a strict
+bound whenever K has any logarithmic term. If no logarithmic term
+occurs, K is 0 or 2, also strictly less than 54/5.
+
+weights       A        B          f           t       U
+(1,1,1,1)     8L2      6L2+6L3    (0,0,0,0)   0       54/5
+(1,1,1,2)     3L3      0          (0,0,0,1)   0       99/10
+(1,1,1,3)     3L3      6L3        (0,0,0,0)   1       43/5
+(1,1,1,4)     3L3      6L3        (0,0,0,0)   0       33/5
+(1,1,2,2)     2L2      8L2        (0,0,1,0)   0       137/15
+(1,1,2,3)     2L2      0          (1,1,0,0)   0       122/15
+(1,1,2,4)     2L2      4L2        (1,0,0,0)   1       36/5
+(1,1,2,5)     2L2      4L2        (1,0,0,0)   0       26/5
+(1,1,3,3)     4L2      8L2        (0,0,0,0)   0       28/5
+(1,1,3,4)     2L2      0          (0,1,0,0)   0       86/15
+(1,1,3,5)     2L2      4L2        (0,0,0,0)   1       24/5
+(1,1,3,6)     2L2      4L2        (0,0,0,0)   0       14/5
+(1,2,2,3)     2L2      2L2        (0,1,0,0)   0       107/15
+(1,2,3,3)     0        4L2        (0,0,1,0)   0       19/3
+(1,2,3,4)     0        2L2        (2,0,0,0)   0       31/5
+(1,2,3,5)     0        0          (2,0,0,0)   0       24/5
+(1,2,3,6)     0        0          (1,0,0,0)   1       22/5
+(1,2,3,7)     0        0          (1,0,0,0)   0       12/5
+(1,2,4,5)     0        2L2        (1,0,0,0)   0       19/5
+(1,2,4,7)     0        0          (0,0,0,0)   1       2
+(1,2,4,8)     0        0          (0,0,0,0)   0       0
+(1,3,3,5)     2L2      6L2        (0,0,0,0)   0       21/5
+(1,3,5,7)     0        2L2        (0,0,0,0)   0       7/5
+
+From the repository root, python proof/analytic_proof.py creates
+proof/analytic_templates.json containing all exact probability expressions
+q_s(p)=sum_{k=0}^4 N_{s,k}p^k(1-p)^(4-k), as well as this table.
+
+What remains external to this proof
+----------------------------------
+The completeness of the 23-template classification must be cited from
+the independently checked classification artifact. Integer scanning up
+to a cutoff would not be sufficient; the exact hyperplane-intersection
+classification supplies the required statement for all real weights.
+
+No conclusion about five or more summands is established here. No
+conclusion about joint concavity in four different Bernoulli parameters
+is claimed. The latter, stronger-looking property already fails with
+three summands and weights (1,1,2), as recorded in the original MO thread.

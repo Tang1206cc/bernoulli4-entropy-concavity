@@ -1,0 +1,22 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+========================================================
+
+The manuscript and other materials assigned to this license in LICENSE are
+licensed under Creative Commons Attribution 4.0 International.
+
+License summary:
+https://creativecommons.org/licenses/by/4.0/
+
+The legal code, which governs the license:
+https://creativecommons.org/licenses/by/4.0/legalcode.en
+
+Please retain attribution to:
+Ziyao Tang (唐梓耀), Ming Ding (丁铭), and ChatGPT.
+
+Work: Strict entropy concavity for weighted sums of four Bernoulli variables
+Version: public research draft v1.0.0, prepared 26 November 2026.
+
+When sharing or adapting this material, give appropriate credit, provide a
+link to the license, and indicate whether changes were made, as required by
+the legal code. This notice identifies the applicable license; it is not a
+replacement for the legal code.

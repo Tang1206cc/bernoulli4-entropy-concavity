@@ -1,15 +1,12 @@
-Public research draft v1.0.0 — PDF inspection
+Public research draft v1.0.1 — PDF inspection
 26 November 2026
 
-Build engine: Tectonic 0.17.0 (XeTeX). The isolated build wrapper
-set \BernoulliFontPath to the directory containing the manuscript's
-font files and then loaded paper/bernoulli4_manuscript.tex.
-Two-pass compilation of the shipped manuscript source: PASS.
-Pages: 9 (A4).
-Author metadata and title-page order: Ziyao Tang (唐梓耀); Ming Ding (丁铭); ChatGPT.
-All text and math fonts embedded: PASS.
-Overfull boxes, missing characters, and undefined references: none observed.
-
-All pages were rendered and visually inspected, including the boxed
-sharp bound, the midpoint comparison and equality proof, both tables,
-the computational provenance, and the bibliography.
+Two-pass build from the released TeX source using Tectonic 0.17.0 (XeTeX).
+The temporary build wrapper supplied the existing Liberation, DejaVu,
+and Noto font files via \BernoulliFontPath.
+Pages: 9 (A4). All text and math fonts are embedded.
+Title-page and PDF author metadata: Ziyao Tang (唐梓耀), Ming Ding (丁铭).
+Running heads: Tang and Ding.
+Generative AI disclosure: page 9, in Reproducibility and computational provenance.
+All pages were rendered and inspected. The log shows no overfull boxes,
+missing characters, unresolved references, or LaTeX package warnings.

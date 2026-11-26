@@ -1,6 +1,6 @@
-Public research draft v1.0.0
+Public research draft v1.0.1
 Interpreter: Python 3.14.6
-Command (repository root): python proof/independent_classification_check.py
+Command (extracted package): python proof/independent_classification_check.py
 
 Independent determinant universe: 522 spaces (1, 25, 181, 315).
 Cramer vertex enumeration: 216 positive spaces (1, 25, 115, 75).

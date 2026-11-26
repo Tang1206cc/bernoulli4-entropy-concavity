@@ -11,10 +11,10 @@ The legal code, which governs the license:
 https://creativecommons.org/licenses/by/4.0/legalcode.en
 
 Please retain attribution to:
-Ziyao Tang (唐梓耀), Ming Ding (丁铭), and ChatGPT.
+Ziyao Tang (唐梓耀) and Ming Ding (丁铭).
 
 Work: Strict entropy concavity for weighted sums of four Bernoulli variables
-Version: public research draft v1.0.0, prepared 26 November 2026.
+Version: public research draft v1.0.1, dated 26 November 2026.
 
 When sharing or adapting this material, give appropriate credit, provide a
 link to the license, and indicate whether changes were made, as required by

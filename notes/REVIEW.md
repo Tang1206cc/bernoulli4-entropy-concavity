@@ -1,6 +1,6 @@
 # Internal review and verification
 
-Version 1.0.0 · prepared 26 November 2026
+Version 1.0.1 · 26 November 2026
 
 This note records the checks performed while preparing the public research draft. The reviews were internal AI reviews. They are not external refereeing, an endorsement by a third party, or a proof-assistant kernel check.
 
@@ -42,4 +42,4 @@ The final PDF was rebuilt from the shipped source and inspected for author infor
 
 The weighted formulation, the reported count of 23 types, and the prior partial four-variable analysis are attributed to the sources listed in the manuscript and README. The checked sources did not identify an earlier complete proof for all four positive weights; that finding does not establish categorical priority.
 
-The result concerns four summands with a common parameter. It makes no claim for arbitrary numbers of summands, or joint concavity in unequal Bernoulli parameters. The optimal curvature constant applies uniformly within the stated four-variable setting. The release preserves the requested author order: Ziyao Tang, Ming Ding, ChatGPT.
+The result concerns four summands with a common parameter. It makes no claim for arbitrary numbers of summands, or joint concavity in unequal Bernoulli parameters. The optimal curvature constant applies uniformly within the stated four-variable setting. The authors are Ziyao Tang and Ming Ding. The manuscript discloses the use of ChatGPT (GPT-6.2 Astra) for derivation, internal proof checking, verifier development and testing, and writing.

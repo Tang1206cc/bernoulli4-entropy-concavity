@@ -1,8 +1,8 @@
 # Strict entropy concavity for weighted sums of four Bernoulli variables
 
-**Ziyao Tang (唐梓耀), Ming Ding (丁铭), ChatGPT**
+**Ziyao Tang (唐梓耀), Ming Ding (丁铭)**
 
-Public research draft **v1.0.0** · prepared 26 November 2026 · English manuscript
+Public research draft **v1.0.1** · 26 November 2026 · English manuscript
 
 [Read the manuscript](paper/bernoulli4_manuscript.pdf) · [Review and verification](notes/REVIEW.md) · [Release notes](RELEASE_NOTES.md) · [Citation metadata](CITATION.cff)
 
@@ -129,6 +129,8 @@ This is a public research draft with internal AI mathematical, computational, an
 
 The local verification records are in [verification/](verification/). The [GitHub Actions workflow](https://github.com/Tang1206cc/bernoulli4-entropy-concavity/actions/workflows/verify.yml) checks both Python 3.10 and 3.12.
 
-Author order is **Ziyao Tang (唐梓耀), Ming Ding (丁铭), ChatGPT**. ChatGPT contributed to the derivations, verification code, manuscript preparation, and internal checks. Use [CITATION.cff](CITATION.cff) or [release/citation.bib](release/citation.bib) when citing the work. The PDF and full reproducibility archive are attached to the [v1.0.0 release](https://github.com/Tang1206cc/bernoulli4-entropy-concavity/releases/tag/v1.0.0).
+The authors used **ChatGPT (GPT-6.2 Astra)** to assist with mathematical derivations, internal proof checking, development and testing of the Python verifiers, and manuscript preparation. Tang and Ding take responsibility for the mathematical claims and the manuscript.
+
+Use [CITATION.cff](CITATION.cff) or [release/citation.bib](release/citation.bib) when citing this version. The PDF and reproducibility archive are attached to the [v1.0.1 release](https://github.com/Tang1206cc/bernoulli4-entropy-concavity/releases/tag/v1.0.1).
 
 Python code, JSON proof certificates, and workflow configuration are under **MIT**. The manuscript, generated TeX tables, and prose documentation are under **CC BY 4.0**. See [LICENSE](LICENSE) for the file-by-file scope.

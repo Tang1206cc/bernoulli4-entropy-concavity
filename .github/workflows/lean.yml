@@ -17,7 +17,7 @@ permissions:
 jobs:
   lean:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Check out the source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -34,8 +34,8 @@ jobs:
       - name: Load the pinned mathlib cache and build
         working-directory: lean
         run: |
-          lake exe cache get Bernoulli4.lean
+          sed -nE 's/^(public )?import (Mathlib[.][[:alnum:]_.]+)$/\2/p' Bernoulli4/*.lean | sort -u | xargs lake exe cache get
           lake build
-      - name: Audit the exported theorem
+      - name: Audit the exported theorems
         working-directory: lean
         run: lake env lean Audit.lean
